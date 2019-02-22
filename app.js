@@ -114,21 +114,34 @@ function searchByTrait(people){
       break;
     case "dob":
     filteredPeople = searchDob(people);
+    
     // case "quit":
     //   return; // stop execution
     // default:
     //   return mainMenu(person, people);
   }
-  let anotherCriteria = prompt("Do you want to search for another criteria? yes or no?", yesNo).toLowerCase();
-  if (anotherCriteria === "yes") {
-    newList = searchByTrait(filteredPeople);
-    return newList;
+  console.log(filteredPeople);
+  searchByTrait(filteredPeople);
+
+  if (filteredPeople.length = 1){
+    displayPeople(filteredPeople);
   }
-  else if (anotherCriteria === "no") {
-    // console.log(newList);
-    console.log(filteredPeople);
-    return filteredPeople;
+
+  else {
+    searchByTrait(filteredPeople);
   }
+
+  // let anotherCriteria = prompt("Do you want to search for another criteria? yes or no?", yesNo).toLowerCase();
+  // if (anotherCriteria === "yes") {
+  //   let newList = filteredPeople;
+  //   console.log(newList);
+  //   return newList;
+  // }
+  // else if (anotherCriteria === "no") {
+  //   // console.log(newList);
+  //   console.log(filteredPeople);
+  //   return filteredPeople;
+  // }
 }
 
 
@@ -169,7 +182,7 @@ function searchHeight(people){
   let height = promptFor("Please enter height.", chars);
 
   let filteredPeople = people.filter(function(el){
-    if(el.height === height) {
+    if(el.height == height) {
       return true;
     }
     else {
@@ -183,7 +196,7 @@ function searchWeight(people){
   let weight = promptFor("Please enter weight.", chars);
 
   let filteredPeople = people.filter(function(el){
-    if(el.weight === weight) {
+    if(el.weight == weight) {
       return true;
     }
     else {
