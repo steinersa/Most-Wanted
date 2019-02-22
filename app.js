@@ -4,8 +4,14 @@ Build all of your functions for displaying and gathering information below (GUI)
 let traitSearch;
 let gender;
 
+
+
+
+
+
 // app is the function called to start the entire application
 function app(people){
+  let result;
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
@@ -23,7 +29,14 @@ function app(people){
       app(people); // restart app
     break;
   }
+  mainMenu(person, people);
 }
+
+
+
+
+
+
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
@@ -60,6 +73,11 @@ function mainMenu(person, people){
   }
 }
 
+
+
+
+
+
 function searchByName(people){
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
@@ -72,8 +90,12 @@ function searchByName(people){
   });
 }
 
+
+
+
+
+
 function searchByTrait(people){
-  let filteredPeople;
   traitSearch = promptFor("Please type in a trait to search by. Options include: 'gender', 'eye color', 'height', 'weight', and 'dob'. Type the option you want or 'restart' or 'quit'.", chars);
   switch(traitSearch) {
     case "gender":
@@ -97,16 +119,23 @@ function searchByTrait(people){
     // default:
     //   return mainMenu(person, people);
   }
-  let anotherCriteria = prompt("Do you want to search for another criteria? yes or no?");
+  let anotherCriteria = prompt("Do you want to search for another criteria? yes or no?", yesNo).toLowerCase();
   if (anotherCriteria === "yes") {
     newList = searchByTrait(filteredPeople);
     return newList;
   }
   else if (anotherCriteria === "no") {
     // console.log(newList);
+    console.log(filteredPeople);
     return filteredPeople;
   }
 }
+
+
+
+
+
+
 
 function searchGender(people){
   let gender = promptFor("Please type male or female.", chars);
@@ -118,13 +147,13 @@ function searchGender(people){
       return false;
     }
     })
+ // console.log(filteredPeople);
  return filteredPeople;
 }
 
 
 function searchEyeColor(people){
   let eyeColor = promptFor("Please type brown, black, hazel, blue, green.", chars);
-
   let filteredPeople = people.filter(function(el){
     if(el.eyeColor === eyeColor) {
       return true;
@@ -132,8 +161,8 @@ function searchEyeColor(people){
     else{
       return false;
     }
-    return filteredPeople;
-  });
+  })
+  return filteredPeople;
 }
 
 function searchHeight(people){
@@ -146,8 +175,8 @@ function searchHeight(people){
     else {
       return false;
     }
-    return filteredPeople;
-  });
+  })
+  return filteredPeople;
 }
 
 function searchWeight(people){
@@ -160,8 +189,8 @@ function searchWeight(people){
     else {
       return false;
     }
-    return filteredPeople;
-  });
+  })
+  return filteredPeople;
 }
 
 function searchDob(people){
@@ -174,11 +203,14 @@ function searchDob(people){
     else {
       return false;
     }
-    return filteredPeople;
-  });
+  })
+  return filteredPeople;
 }
 
   // TODO: What to do with filteredPeople?
+
+
+
 
 
 
