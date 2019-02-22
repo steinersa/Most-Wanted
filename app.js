@@ -14,6 +14,9 @@ function app(people){
     case 'no':
       // TODO: search by traits
       searchByTrait(people);
+      // let searchResults = searchResults;
+      // console.log(searchResults);
+      // return searchResults;
       break;
     default:
       alert("Invalid input. Please try again!");
@@ -70,33 +73,38 @@ function searchByName(people){
 }
 
 function searchByTrait(people){
+  let filteredPeople;
   traitSearch = promptFor("Please type in a trait to search by. Options include: 'gender', 'eye color', 'height', 'weight', and 'dob'. Type the option you want or 'restart' or 'quit'.", chars);
   switch(traitSearch) {
     case "gender":
-    searchGender(people)
+    // let genderPeople = searchGender(people);
+    filteredPeople = searchGender(people);
+    // console.log(genderPeople);
       break;
     case "eyeColor":
-    searchEyeColor(people)
+    filteredPeople = searchEyeColor(people);
       break;
     case "height":
-    searchHeight(people)
+    filteredPeople = searchHeight(people);
       break;
     case "weight":
-    searchWeight(people)
+    filteredPeople = searchWeight(people);
       break;
     case "dob":
-    searchDob(people)
+    filteredPeople = searchDob(people);
     // case "quit":
     //   return; // stop execution
     // default:
     //   return mainMenu(person, people);
   }
   let anotherCriteria = prompt("Do you want to search for another criteria? yes or no?");
-  if (anotherCriteria = "yes") {
-    searchByTrait(people);
+  if (anotherCriteria === "yes") {
+    newList = searchByTrait(filteredPeople);
+    return newList;
   }
-  else {
-  
+  else if (anotherCriteria === "no") {
+    // console.log(newList);
+    return filteredPeople;
   }
 }
 
@@ -110,7 +118,9 @@ function searchGender(people){
       return false;
     }
     })
+ return filteredPeople;
 }
+
 
 function searchEyeColor(people){
   let eyeColor = promptFor("Please type brown, black, hazel, blue, green.", chars);
@@ -122,6 +132,7 @@ function searchEyeColor(people){
     else{
       return false;
     }
+    return filteredPeople;
   });
 }
 
@@ -135,6 +146,7 @@ function searchHeight(people){
     else {
       return false;
     }
+    return filteredPeople;
   });
 }
 
@@ -148,6 +160,7 @@ function searchWeight(people){
     else {
       return false;
     }
+    return filteredPeople;
   });
 }
 
@@ -161,6 +174,7 @@ function searchDob(people){
     else {
       return false;
     }
+    return filteredPeople;
   });
 }
 
