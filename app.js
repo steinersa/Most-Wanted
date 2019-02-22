@@ -15,11 +15,11 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-      searchByName(people);
+     result = searchByName(people);
       break;
     case 'no':
       // TODO: search by traits
-      searchByTrait(people);
+      result = searchByTrait(people);
       // let searchResults = searchResults;
       // console.log(searchResults);
       // return searchResults;
@@ -29,8 +29,10 @@ function app(people){
       app(people); // restart app
     break;
   }
-  mainMenu(person, people);
+  mainMenu(result, people);
+  alert(result);
 }
+
 
 
 
@@ -42,7 +44,6 @@ function app(people){
 function mainMenu(person, people){
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
-
   if(!person){
     alert("Could not find that individual.");
     return app(people); // restart
@@ -96,6 +97,7 @@ function searchByName(people){
 
 
 function searchByTrait(people){
+  let filteredPeople;
   traitSearch = promptFor("Please type in a trait to search by. Options include: 'gender', 'eye color', 'height', 'weight', and 'dob'. Type the option you want or 'restart' or 'quit'.", chars);
   switch(traitSearch) {
     case "gender":
@@ -121,15 +123,16 @@ function searchByTrait(people){
     //   return mainMenu(person, people);
   }
   console.log(filteredPeople);
-  searchByTrait(filteredPeople);
+  // searchByTrait(filteredPeople);
 
-  if (filteredPeople.length = 1){
-    displayPeople(filteredPeople);
+  if (filteredPeople.length === 1){
+    let stupidthing = filteredPeople;
+    return stupidthing;
   }
-
   else {
-    searchByTrait(filteredPeople);
+    return searchByTrait(filteredPeople);
   }
+
 
   // let anotherCriteria = prompt("Do you want to search for another criteria? yes or no?", yesNo).toLowerCase();
   // if (anotherCriteria === "yes") {
