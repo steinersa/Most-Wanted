@@ -5,10 +5,6 @@ let traitSearch;
 let gender;
 
 
-
-
-
-
 // app is the function called to start the entire application
 function app(people){
   let result;
@@ -34,12 +30,6 @@ function app(people){
 }
 
 
-
-
-
-
-
-
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
@@ -49,20 +39,21 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
     case "info":
       // TODO: get person's info
-      
+      displayPerson(person);
       break;
     case "family":
       // TODO: get person's family
-      
+      findImmediateFamily(person);
       break;
     case "descendants":
       // TODO: get person's descendants
       
+
       break;
     case "restart":
       app(people); // restart
@@ -74,9 +65,27 @@ function mainMenu(person, people){
   }
 }
 
-
-
-
+function findImmediateFamily(person){
+  let familySearch = promptFor("Do you want to look up this person's immediate family members? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  let familyMembers = [];
+  switch(familySearch){
+    case 'yes':
+      let familyInfo = "Parents: " + person[0].parents + "\n";
+      familyInfo += "Current Spouse: " + person[0].currentSpouse + "\n";
+      alert (familyInfo);
+       
+      break;
+    case 'no':
+        app(people);
+      break;
+    default:
+      alert("Invalid input. Please try again!");
+      app(people); // restart app
+    break;
+  }
+  mainMenu(result, people);
+  alert(result);
+}
 
 
 function searchByName(people){
@@ -90,10 +99,6 @@ function searchByName(people){
     }
   });
 }
-
-
-
-
 
 
 function searchByTrait(people){
@@ -126,8 +131,8 @@ function searchByTrait(people){
   // searchByTrait(filteredPeople);
 
   if (filteredPeople.length === 1){
-    let stupidthing = filteredPeople;
-    return stupidthing;
+    let person = filteredPeople;
+    return person;
   }
   else {
     return searchByTrait(filteredPeople);
@@ -146,11 +151,6 @@ function searchByTrait(people){
   //   return filteredPeople;
   // }
 }
-
-
-
-
-
 
 
 function searchGender(people){
@@ -226,12 +226,6 @@ function searchDob(people){
   // TODO: What to do with filteredPeople?
 
 
-
-
-
-
-
-
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
@@ -242,8 +236,14 @@ function displayPeople(people){
 function displayPerson(person){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
-  var personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
+  var personInfo = "First Name: " + person[0].firstName + "\n";
+  personInfo += "Last Name: " + person[0].lastName + "\n";
+  personInfo += "Height: " + person[0].height + "\n";
+  personInfo += "Weight: " + person[0].weight + "\n";
+  personInfo += "Date of Birth: " + person[0].dob + "\n";
+  personInfo += "Occupation: " + person[0].occupation + "\n";
+  personInfo += "Eye Color: " + person[0].eyeColor + "\n";
+
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
