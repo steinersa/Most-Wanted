@@ -48,7 +48,7 @@ function mainMenu(person, people){
       break;
     case "family":
       // TODO: get person's family
-      findImmediateFamily(person);
+      findImmediateFamily(person, people);
       break;
     case "descendants":
       // TODO: get person's descendants
@@ -65,15 +65,32 @@ function mainMenu(person, people){
   }
 }
 
-function findImmediateFamily(person){
+function findImmediateFamily(person, people){
   let familySearch = promptFor("Do you want to look up this person's immediate family members? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let familyMembers = [];
+
+  people.filter(function(el){
+    if(person[0].parents[0] == el.id || person[0].parents[1] == el.id){ 
+      familyMembers.push(el.id);
+      console.log(familyMembers);
+    if(person[0].currentSpouse[0] == el.id){
+      familyMembers.push(el.id);
+      console.log(familyMembers);
+      return true;
+    }
+    }
+    else{
+      return false;
+    }
+    
+  });
+
   switch(familySearch){
     case 'yes':
-      let familyInfo = "Parents: " + person[0].parents + "\n";
-      familyInfo += "Current Spouse: " + person[0].currentSpouse + "\n";
-      alert (familyInfo);
-       
+      // let familyInfo = "Parents: " + person[0].parents + "\n";
+      // familyInfo += "Current Spouse: " + person[0].currentSpouse + "\n";
+      // alert (familyInfo);
+      findImmediateFamily();
       break;
     case 'no':
         app(people);
@@ -121,11 +138,10 @@ function searchByTrait(people){
       break;
     case "dob":
     filteredPeople = searchDob(people);
-    
-    // case "quit":
-    //   return; // stop execution
-    // default:
-    //   return mainMenu(person, people);
+    case "quit":
+      return; // stop execution
+    default:
+      return mainMenu(person, people);
   }
   console.log(filteredPeople);
   // searchByTrait(filteredPeople);
@@ -137,19 +153,6 @@ function searchByTrait(people){
   else {
     return searchByTrait(filteredPeople);
   }
-
-
-  // let anotherCriteria = prompt("Do you want to search for another criteria? yes or no?", yesNo).toLowerCase();
-  // if (anotherCriteria === "yes") {
-  //   let newList = filteredPeople;
-  //   console.log(newList);
-  //   return newList;
-  // }
-  // else if (anotherCriteria === "no") {
-  //   // console.log(newList);
-  //   console.log(filteredPeople);
-  //   return filteredPeople;
-  // }
 }
 
 
