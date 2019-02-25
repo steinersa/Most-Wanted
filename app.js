@@ -48,7 +48,8 @@ function mainMenu(person, people){
       break;
     case "family":
       // TODO: get person's family
-      findImmediateFamily(person, people);
+      familyMembers = findImmediateFamily(person, people);
+      displayPeopleRelation(familyMembers);
       break;
     case "descendants":
       // TODO: get person's descendants
@@ -66,55 +67,43 @@ function mainMenu(person, people){
 }
 
 function findImmediateFamily(person, people){
-  let familySearch = promptFor("Do you want to look up this person's immediate family members? Enter 'yes' or 'no'", yesNo).toLowerCase();
-  let familyMembers = [];
+  // let familySearch = promptFor("Do you want to look up this person's immediate family members? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  
 
-  people.filter(function(el){
-    if(person[0].parents[0] == el.id || person[0].parents[1] == el.id){ 
-      familyMembers.push(el.id);
-      console.log(familyMembers);
-    if(person[0].currentSpouse[0] == el.id){
-      familyMembers.push(el.id);
-      console.log(familyMembers);
-      return true;
+  let familyMembers = []; 
+  familyMembers = people.filter(function(el) {
+  if(person[0].parents[0] == el.id || person[0].parents[1] == el.id) { 
+    el.relation = "parent";
+    return true;
+    // == el.id && person[0].currentSpouse[9]
     }
+    else if (person[0].currentSpouse == el.id) {
+      el.relation = "spouse";
+    return true;
+    
     }
     else{
       return false;
     }
     
-  });
-
-  switch(familySearch){
-    case 'yes':
-      // let familyInfo = "Parents: " + person[0].parents + "\n";
-      // familyInfo += "Current Spouse: " + person[0].currentSpouse + "\n";
-      // alert (familyInfo);
-      findImmediateFamily();
-      break;
-    case 'no':
-        app(people);
-      break;
-    default:
-      alert("Invalid input. Please try again!");
-      app(people); // restart app
-    break;
-  }
-  mainMenu(result, people);
-  alert(result);
+  })
+  return familyMembers;
 }
+
+
 
 
 function searchByName(people){
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
 
-  let filteredPeople = people.filter(function(el){
+  filteredPeople = people.filter(function(el){
     if(el.firstName === firstName && el.lastName === lastName) {
       console.log(el);
       return el;
     }
   });
+  return filteredPeople;
 }
 
 
@@ -233,6 +222,12 @@ function searchDob(people){
 function displayPeople(people){
   alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
+  }).join("\n"));
+}
+
+function displayPeopleRelation(people){
+  alert(people.map(function(person){
+    return person.firstName + " " + person.lastName + " " + person.relation;
   }).join("\n"));
 }
 
